@@ -6,7 +6,7 @@ class Card {
     }
 }
 
-// Unit class that inherits from Card
+// Unit class that inherits from Card----
 class Unit extends Card {
     constructor(name, cost, power, resilience) {
         super(name, cost);
@@ -15,7 +15,7 @@ class Unit extends Card {
     }
 
     attack(target) {
-        // reduce target res by power
+        // reduce target res by power----
 
         // only run attack if target is an instance of the Unit class
         if (target instanceof Unit) {
@@ -26,7 +26,7 @@ class Unit extends Card {
     }
 }
 
-// Effect class that inherits from Card
+// Effect class that inherits from Card----
 class Effect extends Card {
     constructor(name, cost, stat, magnitude) {
         super(name, cost);
@@ -38,28 +38,26 @@ class Effect extends Card {
     }
 
     formatText(stat, magnitude) {
-        // return a string for this.text based of stat and magnitude
+        // return a string for this.text based of stat and magnitude----
 
         let direction;
         if (magnitude > 0) {
             direction = "increase";
         } else {
             direction = "reduce";
-        }
+        } 
 
         return `${direction} target's ${stat} by ${Math.abs(magnitude)}`;
     }
 
     play(target) {
-        // only play an Effect if target is an instance of the Unit class
+        // only play an Effect if target is an instance of the Unit class----
         if (target instanceof Unit) {
             if (this.stat === "resilience") {
                 target.resilience += this.magnitude;
             } else {
                 target.power += this.magnitude;
             }
-        } else {
-            throw new Error("Effect.play(): Target must be a unit!");
         }
     }
 }
