@@ -9,7 +9,7 @@ export const HookForm = (props) => {
     const [confirmPassword, setConfirmPassword] = useState();
 
     return (
-        <>
+        <div>
             <form>
                 {/* render form elements and set states on input change */}
                 <div>
@@ -63,7 +63,7 @@ export const HookForm = (props) => {
                 <p>Password: {password}</p>
                 <p>Confirm Password: {confirmPassword}</p>
             </div>
-        </>
+        </div>
     );
 };
 
