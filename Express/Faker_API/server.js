@@ -8,9 +8,9 @@ const app = express();
 // set the port for localhost
 const port = 8000;
 //createUser Function
-const createUser =()=>{
+const createUser = () => {
     const newFake = {
-        _id: faker.datatype.id(),
+        _id: faker.datatype.uuid(),
         firstname: faker.name.firstName(),
         lastName: faker.name.lastName(),
         phoneNumber: faker.phone.number(),
@@ -18,11 +18,11 @@ const createUser =()=>{
         password: faker.internet.password(),
     };
     return newFake;
-}
-// createCompany Function
-const craeteCompany =()=>{
+};
+
+const createCompany = () => {
     const newFake = {
-        _id: faker.datatype.id(),
+        _id: faker.datatype.uuid(),
         name: faker.company.name(),
         address: {
             street: faker.address.streetAddress(),
@@ -33,9 +33,7 @@ const craeteCompany =()=>{
         },
     };
     return newFake;
-
-}
-
+};
 //******MIDDELWARE******* *///
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
@@ -50,7 +48,9 @@ app.get("/api/companies/new",(req,res)=>{
     return res.json(craeteCompany());
 });
 //createRouteForBothUser&Company
-
+app.get("/api/user/company", (req, res) => {
+    return res.json({ user: createUser(), company: createCompany() });
+});
 
 
 
