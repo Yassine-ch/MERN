@@ -1,70 +1,41 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import "bootstrap/dist/css/bootstrap.css"
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-const AuthorList = (props) => {
-    //create a new state 
-    const [author , setAuthor]= useState([]);
-    useEffect(()=>{
-        axios.get("http://localhost:8000/api/authors/")
-        .then((serverResponse)=>{
-            console.log(serverResponse.data);
-            setProducts(serverResponse.data)
-        })
-        .catch((err)=>{
-            console.log("Somthing went wrong ❌",err);
-        })
-    },[])
-    //deleteFunction
-    const deleteProduct =(id)=>{
-        axios.delete("http://localhost:8000/api/authors/"+id)
-        .then((serverResponse)=>{
-            console.log("delete succesfully",serverResponse.data);
-            //removeFromTheDOM
-            setProducts(products.filter((product) => product._id !== id))
-
-        })
-        .catch((err)=>{
-            console.log("Somthing went wrong ❌",err);
-        })
-    }
+const AuthorList = ({ authors, deleteHandler }) => {
+  // (props) => props.authors
+  // const {authors} = props
   return (
-    <div><h2>
-        Products List
-    </h2>
-       
-         <table className='table'>
-            <thead>
-            <tr>
-                <th>title</th>
-                <th>price</th>
-                <th>description</th>
-                <th>Action</th>
-                
-            </tr>
-            </thead>
-            <tbody>
-                 {products.map((oneProduct)=>{
-                    return(
-                        <tr key={oneProduct._id} >
-                        <td><Link to={`products/${oneProduct._id}`}>{oneProduct.title}</Link></td>
-                        <td>{oneProduct.price}</td>
-                        <td>{oneProduct.description}</td>
-                        <td>
-                        <button className='btn btn-success'><Link to={`products/edit/${oneProduct._id}`}>update!!</Link></button>
-                           <button onClick={()=>deleteProduct(oneProduct._id)}  className='btn btn-danger'>delete</button>
-                        </td>
-                    </tr>
-                    )
-                 })}   
-            </tbody>
-         </table>
-    </div>
+    <>
+      <table>
+        <thead>
+          <tr>
+            <th>Authors</th>
+            <th>Actions Available</th>
+          </tr>
+        </thead>
+        <tbody>
+          {authors.map((author) => {
+            return (
+              <tr key={author._id}>
+                <td>{author.name}</td>
+                <td>
+                  <Link to={`/edit/${author._id}`}>Update</Link> |
+                  <Link to={`/details/${author._id}`}>Details</Link> |
+                  <button
+                    onClick={() => {
+                      deleteHandler(author._id);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </>
+  );
+};
 
-   
-
-  )
-}
-
-export default ProductsList
+export default AuthorList;

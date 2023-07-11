@@ -1,22 +1,22 @@
-import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import { AuthorList } from "./components/AuthorList";
-import { NewAuthor } from "./components/NewAuthor";
-import { EditAuthor } from "./components/EditAuthor";
-import { NotFound } from "./components/NotFound";
+import React from 'react';
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Main from './Views/Main';
+import AuthorForm from './Views/AuthorForm';
+import EditAuthor from './Views/EditAuthor';
+import Details from './Views/Details';
 
 function App() {
-    return (
-        <div className="App">
-            <h1>Favorite Authors</h1>
-            <Routes>
-                <Route path="/" element={<AuthorList />} />
-                <Route path="/new" element={<NewAuthor />} />
-                <Route path="/edit/:_id" element={<EditAuthor />} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-        </div>
-    );
+  return (
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/create" element={<AuthorForm />} />
+        <Route path="/edit/:id" element={<EditAuthor />} />
+        <Route path="/details/:id" element={<Details />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;
